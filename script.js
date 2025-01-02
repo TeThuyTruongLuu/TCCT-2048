@@ -1,44 +1,123 @@
+const characterImages = {}; // Lưu hình gán cho các giá trị tile
+const tileValues = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
 const gridSize = 8;
 let grid = [];
-let timer = 0;
-let interval;
+let timer = 0; // Biến đếm thời gian
+let timerInterval; // Biến lưu interval để dừng/khởi động timer
 
-// Tạo bảng chơi
+
+// Chọn nhân vật
+document.querySelectorAll(".character").forEach((character) => {
+    character.addEventListener("click", () => {
+        const charId = character.dataset.id;
+        loadCharacterTiles(charId);
+        document.getElementById("character-selection").style.display = "none";
+        document.getElementById("tile-assignment").style.display = "block";
+    });
+});
+
+// Load ảnh các tile cho nhân vật
+function loadCharacterTiles(charId) {
+    const container = document.getElementById("character-tiles");
+    container.innerHTML = "";
+    for (let i = 1; i <= tileValues.length; i++) {
+        const img = document.createElement("img");
+        img.src = `images/${charId} (${i}).png`;
+        img.draggable = true;
+        img.dataset.charId = charId;
+        img.dataset.tileIndex = i;
+
+        img.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("tileIndex", img.dataset.tileIndex);
+            e.dataTransfer.setData("charId", img.dataset.charId);
+        });
+
+        container.appendChild(img);
+    }
+}
+
+// Kéo thả hình ảnh vào tiles
+document.querySelectorAll(".tile-slot").forEach((slot) => {
+    slot.addEventListener("dragover", (e) => e.preventDefault());
+    slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const tileIndex = e.dataTransfer.getData("tileIndex");
+        const charId = e.dataTransfer.getData("charId");
+        const tileValue = slot.dataset.value;
+
+        // Gán ảnh
+        slot.innerHTML = `<img src="images/${charId} (${tileIndex}).png" alt="Tile">`;
+        characterImages[tileValue] = `images/${charId} (${tileIndex}).png`;
+    });
+});
+
+// Bắt đầu game
+document.getElementById("confirm-selection").addEventListener("click", () => {
+    document.getElementById("tile-assignment").style.display = "none";
+    document.getElementById("game-container").style.display = "block";
+    createBoard();
+    renderBoard();
+});
+
+// Tạo bảng game
 function createBoard() {
     const gameBoard = document.getElementById("game-board");
-    gameBoard.innerHTML = ""; // Xóa bảng cũ
+    gameBoard.innerHTML = "";
     grid = Array(gridSize)
         .fill(null)
         .map(() => Array(gridSize).fill(0));
 
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            const tile = document.createElement("div");
-            tile.classList.add("tile");
-
-            const background = document.createElement("div");
-            background.classList.add("tile-background");
-
-            const overlay = document.createElement("div");
-            overlay.classList.add("tile-overlay");
-
-            const text = document.createElement("div");
-            text.classList.add("tile-text");
-
-            tile.appendChild(background);
-            tile.appendChild(overlay);
-            tile.appendChild(text);
-            gameBoard.appendChild(tile);
-        }
+    for (let i = 0; i < gridSize * gridSize; i++) {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.innerHTML = `
+            <img src="" alt="Tile">
+            <div class="tile-overlay"></div>
+            <div class="tile-text"></div>
+        `;
+        gameBoard.appendChild(tile);
     }
 
     addRandomTile();
     addRandomTile();
-    renderBoard();
+}
+
+// Hiển thị bảng game
+function renderBoard() {
+    const tiles = document.querySelectorAll(".tile");
+    let index = 0;
+
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const value = grid[i][j];
+            const tile = tiles[index];
+            const img = tile.querySelector("img");
+            const overlay = tile.querySelector(".tile-overlay");
+            const text = tile.querySelector(".tile-text");
+
+            // Hiển thị hình ảnh nếu value > 0, nếu không thì ẩn ảnh
+            if (value > 0 && characterImages[value]) {
+                img.src = characterImages[value];
+                img.style.display = "block"; // Hiển thị ảnh
+            } else {
+                img.src = ""; // Xóa đường dẫn ảnh
+                img.style.display = "none"; // Ẩn ảnh
+            }
+
+            // Hiển thị overlay
+            overlay.style.backgroundColor = value > 0 ? getTileColor(value) : "transparent";
+
+            // Hiển thị chữ
+            text.textContent = value > 0 ? value : "";
+
+            index++;
+        }
+    }
 }
 
 
-// Thêm ô mới vào bảng
+
+// Thêm ô mới
 function addRandomTile() {
     const emptyTiles = [];
     for (let i = 0; i < gridSize; i++) {
@@ -51,42 +130,10 @@ function addRandomTile() {
 
     if (emptyTiles.length > 0) {
         const { x, y } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
-        grid[x][y] = Math.random() < 0.8 ? 2 : 4;
+        grid[x][y] = Math.random() < 0.8 ? 2 : 4; // 90% là 2, 10% là 4
     }
 }
 
-// Hiển thị bảng chơi
-function renderBoard() {
-    const tiles = document.querySelectorAll(".tile");
-    let index = 0;
-
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            const value = grid[i][j];
-            const tile = tiles[index];
-            const background = tile.querySelector(".tile-background");
-            const overlay = tile.querySelector(".tile-overlay");
-            const text = tile.querySelector(".tile-text");
-
-            // Xác định index hình ảnh (log2 của giá trị)
-            const imageIndex = value > 0 ? Math.log2(value) : 0;
-
-            // Ghi rõ đường dẫn tới file hình ảnh
-            const imagePath = imageIndex > 0 ? `images/Khuu (${imageIndex}).png` : "";
-
-            // Gán hình ảnh vào background
-            background.style.backgroundImage = imagePath ? `url(${imagePath})` : "";
-
-            // Hiển thị overlay màu
-            overlay.style.backgroundColor = value === 0 ? "rgba(0, 0, 0, 0.8)" : getTileColor(value);
-
-            // Hiển thị chữ
-            text.textContent = value === 0 ? "" : value;
-
-            index++;
-        }
-    }
-}
 
 
 
@@ -111,20 +158,33 @@ function getTileColor(value) {
 
 // Khởi động lại game
 function restartGame() {
-    clearInterval(interval);
+    stopTimer(); // Dừng timer cũ
     timer = 0;
     document.getElementById("timer").textContent = `Time: 0s`;
-    startTimer();
-    createBoard();
+    startTimer(); // Bắt đầu lại timer mới
+    createBoard(); // Reset bảng chơi
+    renderBoard(); // Hiển thị lại bảng
 }
+
 
 // Đếm thời gian
 function startTimer() {
-    interval = setInterval(() => {
+    const timerElement = document.getElementById("timer");
+    timer = 0; // Reset lại thời gian
+    if (timerInterval) clearInterval(timerInterval); // Đảm bảo không có interval cũ đang chạy
+
+    // Tạo timer mới
+    timerInterval = setInterval(() => {
         timer++;
-        document.getElementById("timer").textContent = `Time: ${timer}s`;
-    }, 1000);
+        timerElement.textContent = `Time: ${timer}s`; // Cập nhật giao diện
+    }, 1000); // Mỗi giây cập nhật một lần
 }
+
+
+function stopTimer() {
+    clearInterval(timerInterval); // Dừng interval
+}
+
 
 // Xử lý nút di chuyển
 function move(direction) {
@@ -220,6 +280,7 @@ function checkGameOver() {
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             if (grid[row][col] === 2048) {
+				stopTimer();
                 alert(`Congratulations! You reached 2048 in ${timer} seconds!`);
                 restartGame();
                 return;
@@ -229,6 +290,7 @@ function checkGameOver() {
 
     // Kiểm tra còn nước đi nào không
     if (!canMove()) {
+		stopTimer();
         alert("Game Over! No moves left.");
         restartGame();
     }

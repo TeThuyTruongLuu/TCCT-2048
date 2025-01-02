@@ -1,4 +1,4 @@
-/* Tổng thể */
+/* Tổng quan */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -7,100 +7,140 @@ body {
     padding: 20px;
 }
 
-/* Container chính */
-#game-container {
-    max-width: 600px;
-    margin: 0 auto;
+/* Phần chọn nhân vật */
+#character-selection {
+    margin-bottom: 20px;
 }
 
-/* Bảng game */
-#game-board {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 5px;
-    margin: 20px 0;
-    background: #bbada0;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* Ô trong bảng */
-/* Tile chung */
-.tile {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    overflow: hidden;
+#character-list {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 10px;
+}
+
+.character {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.character img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+/* Bảng gán tile */
+#tile-assignment {
+    margin-top: 20px;
+}
+
+#tile-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#character-tiles img {
+    width: 80px; /* Thử nghiệm kích thước */
+    height: 80px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: grab;
+}
+
+
+.tile-slot {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 100px;
+}
+
+/* Hình ảnh trong các tile-slot */
+.tile-slot img {
+    width: 100%; /* Đảm bảo ảnh chiếm toàn bộ ô nhưng không vượt quá kích thước slot */
+    height: 100%; /* Đảm bảo ảnh không méo */
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh phù hợp */
+    border-radius: 5px; /* Bo góc giống các slot */
+}
+
+
+/* Layer hình ảnh trong game */
+.tile {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của cột */
+    height: 100%; /* Chiếm toàn bộ chiều cao của ô */
+    aspect-ratio: 1 / 1; /* Đảm bảo ô luôn vuông */
+    background-color: #cdc1b4; /* Màu nền mặc định cho ô trống */
+    border-radius: 5px; /* Bo góc cho ô */
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Hình ảnh nền */
+.tile img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo hình không bị méo */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Nằm dưới các layer khác */
+}
+
+/* Layer màu phía trên */
+.tile .tile-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Màu mặc định trong suốt, sẽ thay đổi qua JS */
+    z-index: 2;
+    opacity: 0.5;
+}
+
+/* Layer chữ */
+.tile .tile-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 18px;
     font-weight: bold;
-    user-select: none;
-}
-
-/* Lớp hình ảnh */
-.tile-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
-
-/* Lớp màu overlay */
-.tile-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Màu sẽ cập nhật từ JS */
-    z-index: 2;
-}
-
-/* Lớp chữ */
-.tile-text {
-    position: relative;
-    color: #fff; /* Màu chữ */
+    color: white;
     z-index: 3;
+    text-align: center;
     opacity: 1;
 }
 
 
-/* Các nút điều khiển */
-#game-controls {
-    margin: 20px 0;
-}
 
-#restart-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #8f7a66;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#restart-button:hover {
-    background-color: #9e8b7a;
-}
-
-/* Leaderboard */
-#leaderboard {
+/* Bảng game */
+#game-container {
     margin-top: 20px;
 }
 
-#leaderboard h2 {
-    font-size: 20px;
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 cột cho bảng 8x8 */
+    gap: 5px;
+    background: #bbada0;
+    padding: 10px;
+    border-radius: 10px;
+    width: 500px; /* Đặt chiều rộng cụ thể */
+    height: 500px; /* Đặt chiều cao cụ thể */
+    margin: 0 auto; /* Canh giữa bảng game */
 }
 
-#leaderboard-list {
-    list-style: none;
-    padding: 0;
-}

@@ -7,22 +7,48 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <h1>2048 Game</h1>
-        <div id="timer">Time: 0s</div>
-        <div id="game-board">
-            <!-- Tiles sẽ được thêm động bằng JavaScript -->
-        </div>
-        <div id="game-controls">
-            <button id="restart-button">Restart Game</button>
-        </div>
-        <div id="leaderboard">
-            <h2>Leaderboard</h2>
-            <ul id="leaderboard-list">
-                <!-- Dữ liệu leaderboard sẽ được thêm bằng JavaScript -->
-            </ul>
+    <div id="character-selection">
+        <h1>Choose Your Character</h1>
+        <div id="character-list">
+            <!-- Danh sách nhân vật để chọn -->
+            <div class="character" data-id="Khuu">
+                <img src="images/Khuu (1).png" alt="Khuu">
+                <p>Khuu</p>
+            </div>
         </div>
     </div>
+
+    <div id="tile-assignment" style="display: none;">
+        <h2>Assign Characters to Tiles</h2>
+        <div id="tile-grid">
+            <!-- Các ô để gán ảnh -->
+            <div class="tile-slot" data-value="2">Tile 2</div>
+            <div class="tile-slot" data-value="4">Tile 4</div>
+            <div class="tile-slot" data-value="8">Tile 8</div>
+            <div class="tile-slot" data-value="16">Tile 16</div>
+            <div class="tile-slot" data-value="32">Tile 32</div>
+            <div class="tile-slot" data-value="64">Tile 64</div>
+            <div class="tile-slot" data-value="128">Tile 128</div>
+            <div class="tile-slot" data-value="256">Tile 256</div>
+            <div class="tile-slot" data-value="512">Tile 512</div>
+            <div class="tile-slot" data-value="1024">Tile 1024</div>
+            <div class="tile-slot" data-value="2048">Tile 2048</div>
+        </div>
+        <div id="character-tiles">
+            <!-- Hình nhân vật sẽ xuất hiện ở đây -->
+        </div>
+        <button id="confirm-selection">Confirm and Start</button>
+    </div>
+
+	<div id="game-container" style="display: none;">
+		<h1>2048 Game</h1>
+		<div id="timer">Time: 0s</div> <!-- Thêm timer -->
+		<div id="game-board">
+			<!-- Bảng game -->
+		</div>
+		<button id="restart-button">Restart Game</button>
+	</div>
+
     <script src="script.js"></script>
 </body>
 </html>
