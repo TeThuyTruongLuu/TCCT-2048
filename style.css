@@ -14,6 +14,10 @@ body {
     padding: 20px;
 }
 
+h1, h2 {
+    margin-bottom: 10px; /* Giảm khoảng cách dưới */
+}
+
 /* Phần chọn nhân vật */
 #character-selection {
     margin-bottom: 20px;
@@ -43,7 +47,7 @@ body {
 
 /* Bảng gán tile */
 #tile-assignment {
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 #tile-grid {
@@ -54,7 +58,8 @@ body {
 	margin: 0 auto;
     justify-content: center;
     width: 700px; /* Đặt chiều rộng cụ thể */
-    height: 500px; /* Đặt chiều cao cụ thể */
+    height: 475px; /* Đặt chiều cao cụ thể */
+
 }
 
 #character-tiles img {
@@ -160,3 +165,24 @@ body {
 	touch-action: none;
 }
 
+#confirm-selection {
+    font-family: '000 Chinacat [TeddyBear]'; /* Sử dụng font TeddyBear */
+
+    font-weight: bold; /* In đậm */
+    color: white; /* Màu chữ */
+    background-color: #4CAF50; /* Màu nền xanh lá */
+    border: none; /* Xóa viền mặc định */
+    border-radius: 10px; /* Bo góc */
+    padding: 15px 30px; /* Khoảng cách trong nút */
+    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    transition: all 0.3s ease; /* Hiệu ứng mượt khi hover */
+    text-transform: uppercase; /* Viết hoa chữ */
+}
+
+/* Hiệu ứng khi hover */
+#confirm-selection:hover {
+    background-color: #45a049; /* Đổi màu nền */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng */
+    transform: scale(1.05); /* Phóng to nhẹ */
+}
