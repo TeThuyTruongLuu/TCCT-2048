@@ -172,7 +172,7 @@ function renderBoard() {
             overlay.style.backgroundColor = value > 0 ? getTileColor(value) : "transparent";
 
             // Hiển thị chữ
-            text.textContent = value > 0 ? value : "";
+            text.textContent = value > 0 ? tileNames[value] : "";
 
             index++;
         }
@@ -198,6 +198,19 @@ function addRandomTile() {
     }
 }
 
+const tileNames = {
+    2: "Mới tình",
+    4: "Ra khỏi nhà",
+    8: "Đi làm",
+    16: "Vào họp",
+    32: "Sếp mắng",
+    64: "Hóng drama",
+    128: "Sếp hỏi task",
+    256: "Sếp nhắn tin",
+    512: "Lương tới",
+    1024: "Về nhà",
+    2048: "Đi ngủ"
+};
 
 
 
