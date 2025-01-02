@@ -21,7 +21,8 @@ document.querySelectorAll(".character").forEach((character) => {
 function loadCharacterTiles(charId) {
     const container = document.getElementById("character-tiles");
     container.innerHTML = "";
-    for (let i = 1; i <= tileValues.length; i++) {
+	const totalImages = 8;
+    for (let i = 1; i <= totalImages; i++) {
         const img = document.createElement("img");
         img.src = `images/${charId} (${i}).png`;
         img.draggable = true;
