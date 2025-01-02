@@ -249,6 +249,11 @@ function startTimer() {
     const timerElement = document.getElementById("timer");
     timer = 0; // Reset lại thời gian
     if (timerInterval) clearInterval(timerInterval); // Đảm bảo không có interval cũ đang chạy
+	
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
+    timerElement.textContent = `Thời gian bị bào: ${formatTime(minutes)}:${formatTime(seconds)}`;
+
 
     timerInterval = setInterval(() => {
         timer++;
