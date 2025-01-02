@@ -131,6 +131,8 @@ function createBoard() {
     addRandomTile();
 }
 
+const gameBoard = document.getElementById("game-board");
+
 gameBoard.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX; // Lưu tọa độ X khi bắt đầu vuốt
     touchStartY = e.touches[0].clientY; // Lưu tọa độ Y khi bắt đầu vuốt
