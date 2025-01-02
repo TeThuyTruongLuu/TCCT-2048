@@ -19,54 +19,54 @@ body {
 }
 
 .character {
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
+    border: 2vw solid #ddd;
+    border-radius: 5vw;
+    padding: 10vw;
     text-align: center;
     cursor: pointer;
 }
 
 .character img {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
+    width: 100vw;
+    height: 100vw;
+    border-radius: 5vw;
     touch-action: none; /* Ngăn cuộn màn hình khi sử dụng cảm ứng */
     cursor: grab;
 }
 
 /* Bảng gán tile */
 #tile-assignment {
-    margin-top: 20px;
+    margin-top: 20vw;
 }
 
 #tile-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 10vw;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20vw 0;
 }
 
 #character-tiles img {
-    width: 80px; /* Thử nghiệm kích thước */
-    height: 80px;
+    width: 80vw; /* Thử nghiệm kích thước */
+    height: 80vw;
     object-fit: cover;
-    margin: 5px;
-    border-radius: 5px;
+    margin: 5vw;
+    border-radius: 5vw;
     cursor: grab;
 }
 
 
 .tile-slot {
-    width: 100px;
-    height: 100px;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
+    width: 100vw;
+    height: 100vw;
+    border: 2vw dashed #ccc;
+    border-radius: 5vw;
     background-color: #f2f2f2;
     text-align: center;
-    font-size: 16px;
+    font-size: 16vw;
     font-weight: bold;
-    line-height: 100px;
+    line-height: 100vw;
 }
 
 /* Hình ảnh trong các tile-slot */
@@ -74,7 +74,7 @@ body {
     width: 100%; /* Đảm bảo ảnh chiếm toàn bộ ô nhưng không vượt quá kích thước slot */
     height: 100%; /* Đảm bảo ảnh không méo */
     object-fit: cover; /* Giữ tỷ lệ hình ảnh phù hợp */
-    border-radius: 5px; /* Bo góc giống các slot */
+    border-radius: 5vw; /* Bo góc giống các slot */
 }
 
 
@@ -84,7 +84,7 @@ body {
     height: 100%; /* Chiếm toàn bộ chiều cao của ô */
     aspect-ratio: 1 / 1; /* Đảm bảo ô luôn vuông */
     background-color: #cdc1b4; /* Màu nền mặc định cho ô trống */
-    border-radius: 5px; /* Bo góc cho ô */
+    border-radius: 5vw; /* Bo góc cho ô */
     position: relative;
     overflow: hidden;
 }
@@ -119,7 +119,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 18vw;
     font-weight: bold;
     color: black;
     z-index: 3;
@@ -131,18 +131,18 @@ body {
 
 /* Bảng game */
 #game-container {
-    margin-top: 20px;
+    margin-top: 20vw;
 }
 
 #game-board {
     display: grid;
     grid-template-columns: repeat(6, 1fr); /* 8 cột cho bảng 8x8 */
-    gap: 5px;
+    gap: 5vw;
     background: #bbada0;
-    padding: 10px;
-    border-radius: 10px;
-    width: 500px; /* Đặt chiều rộng cụ thể */
-    height: 500px; /* Đặt chiều cao cụ thể */
+    padding: 10vw;
+    border-radius: 10vw;
+    width: 500vw; /* Đặt chiều rộng cụ thể */
+    height: 500vw; /* Đặt chiều cao cụ thể */
     margin: 0 auto; /* Canh giữa bảng game */
 	touch-action: none;
 }
