@@ -1,6 +1,6 @@
 const characterImages = {}; // Lưu hình gán cho các giá trị tile
 const tileValues = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
-const gridSize = 6;
+const gridSize = 5;
 let grid = [];
 let timer = 0; // Biến đếm thời gian
 let timerInterval; // Biến lưu interval để dừng/khởi động timer
