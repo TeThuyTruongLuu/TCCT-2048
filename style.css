@@ -30,6 +30,8 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 5px;
+    touch-action: none; /* Ngăn cuộn màn hình khi sử dụng cảm ứng */
+    cursor: grab;
 }
 
 /* Bảng gán tile */
