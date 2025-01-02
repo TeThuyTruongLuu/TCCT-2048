@@ -1,6 +1,13 @@
 /* Tổng quan */
+@font-face {
+    font-family: '000 Chinacat [TeddyBear]'; /* Tên bạn muốn đặt cho font */
+    src: url('./fonts/000 Chinacat [TeddyBear].otf') format('truetype'); /* Đường dẫn đến file font */
+    font-weight: thin; /* Trọng lượng mặc định */
+    font-style: normal; /* Kiểu mặc định */
+}
+
 body {
-    font-family: Arial;
+    font-family: '000 Chinacat [TeddyBear]';
     text-align: center;
     background-color: #faf8ef;
     margin: 0;
