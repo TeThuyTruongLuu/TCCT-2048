@@ -1,6 +1,6 @@
 /* Tổng quan */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     text-align: center;
     background-color: #faf8ef;
     margin: 0;
@@ -42,31 +42,37 @@ body {
 #tile-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 15px;
+	align-content: center;
+	margin: 0 auto;
     justify-content: center;
-    margin: 20px 0;
+    width: 700px; /* Đặt chiều rộng cụ thể */
+    height: 500px; /* Đặt chiều cao cụ thể */
 }
 
 #character-tiles img {
     width: 80px; /* Thử nghiệm kích thước */
     height: 80px;
     object-fit: cover;
-    margin: 5px;
+    margin: 10px;
     border-radius: 5px;
     cursor: grab;
 }
 
 
 .tile-slot {
-    width: 100px;
-    height: 100px;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    background-color: #f2f2f2;
+    width: 120px; /* Tăng kích thước để nội dung hiển thị đẹp hơn */
+    height: 120px; /* Cân bằng với chiều rộng */
+    border: 2px dashed #aaaaaa; /* Thay đổi màu đường viền */
+    border-radius: 10px; /* Tăng bo góc cho mềm mại hơn */
+    background-color: #fafafa; /* Màu nền sáng hơn */
     text-align: center;
-    font-size: 16px;
+    font-size: 14px; /* Điều chỉnh kích thước chữ */
     font-weight: bold;
-    line-height: 100px;
+    line-height: 120px; /* Đảm bảo chữ nằm giữa theo chiều dọc */
+    color: #333; /* Màu chữ dễ đọc hơn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
+    transition: all 0.2s ease; /* Hiệu ứng chuyển đổi khi hover */
 }
 
 /* Hình ảnh trong các tile-slot */
