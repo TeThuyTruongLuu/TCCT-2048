@@ -167,7 +167,6 @@ h1, h2 {
 
 #confirm-selection {
     font-family: '000 Chinacat [TeddyBear]'; /* Sử dụng font TeddyBear */
-
     font-weight: bold; /* In đậm */
     color: white; /* Màu chữ */
     background-color: #4CAF50; /* Màu nền xanh lá */
@@ -183,6 +182,27 @@ h1, h2 {
 /* Hiệu ứng khi hover */
 #confirm-selection:hover {
     background-color: #45a049; /* Đổi màu nền */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng */
+    transform: scale(1.05); /* Phóng to nhẹ */
+}
+
+#restart-button {
+    margin-top: 20px;
+    font-family: '000 Chinacat [TeddyBear]'; /* Sử dụng font TeddyBear */
+    font-weight: bold; /* In đậm */
+    color: white; /* Màu chữ */
+    background-color: #a43d3d;
+    border: none; /* Xóa viền mặc định */
+    border-radius: 10px; /* Bo góc */
+    padding: 15px 30px; /* Khoảng cách trong nút */
+    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    transition: all 0.3s ease; /* Hiệu ứng mượt khi hover */
+    text-transform: uppercase; /* Viết hoa chữ */
+}
+
+#restart-button:hover {
+	background-color: #872d2d;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng */
     transform: scale(1.05); /* Phóng to nhẹ */
 }
