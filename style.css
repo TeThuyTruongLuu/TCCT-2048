@@ -52,7 +52,7 @@ h1, h2 {
 
 #tile-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 15px;
 	align-content: center;
 	margin: 0 auto;
@@ -157,7 +157,7 @@ h1, h2 {
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 8 cột cho bảng 8x8 */
+    grid-template-columns: repeat(5, 1fr);
     gap: 5px;
     background: #bbada0;
     padding: 10px;
