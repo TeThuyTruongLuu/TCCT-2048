@@ -6,6 +6,11 @@ let timer = 0; // Biến đếm thời gian
 let timerInterval; // Biến lưu interval để dừng/khởi động timer
 let timerStarted = false;
 let draggedImage = null;
+let touchStartX = 0; // Tọa độ X khi bắt đầu vuốt
+let touchStartY = 0; // Tọa độ Y khi bắt đầu vuốt
+let touchEndX = 0; // Tọa độ X khi kết thúc vuốt
+let touchEndY = 0; // Tọa độ Y khi kết thúc vuốt
+
 
 // Chọn nhân vật
 document.querySelectorAll(".character").forEach((character) => {
@@ -126,6 +131,19 @@ function createBoard() {
     addRandomTile();
 }
 
+gameBoard.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX; // Lưu tọa độ X khi bắt đầu vuốt
+    touchStartY = e.touches[0].clientY; // Lưu tọa độ Y khi bắt đầu vuốt
+});
+
+// Khi người chơi kết thúc vuốt
+gameBoard.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].clientX; // Lưu tọa độ X khi kết thúc vuốt
+    touchEndY = e.changedTouches[0].clientY; // Lưu tọa độ Y khi kết thúc vuốt
+
+    handleSwipe(); // Xử lý hướng vuốt
+});
+
 // Hiển thị bảng game
 function renderBoard() {
     const tiles = document.querySelectorAll(".tile");
@@ -235,6 +253,26 @@ function stopTimer() {
     if (timerInterval) {
         clearInterval(timerInterval); // Xóa interval
         timerInterval = null; // Đặt lại biến
+    }
+}
+
+function handleSwipe() {
+    const deltaX = touchEndX - touchStartX; // Khoảng cách vuốt theo trục X
+    const deltaY = touchEndY - touchStartY; // Khoảng cách vuốt theo trục Y
+
+    // Kiểm tra vuốt ngang hay dọc
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 50) {
+            move("right"); // Vuốt sang phải
+        } else if (deltaX < -50) {
+            move("left"); // Vuốt sang trái
+        }
+    } else {
+        if (deltaY > 50) {
+            move("down"); // Vuốt xuống
+        } else if (deltaY < -50) {
+            move("up"); // Vuốt lên
+        }
     }
 }
 
