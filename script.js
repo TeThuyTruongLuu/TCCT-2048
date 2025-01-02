@@ -254,7 +254,7 @@ function startTimer() {
         timer++;
         const minutes = Math.floor(timer / 60); // Tính số phút
         const seconds = timer % 60; // Tính số giây còn lại
-        timerElement.textContent = `Time: ${formatTime(minutes)}:${formatTime(seconds)}`; // Hiển thị thời gian
+        timerElement.textContent = `Thời gian bị bào: ${formatTime(minutes)}:${formatTime(seconds)}`; // Hiển thị thời gian
     }, 1000);
 }
 
