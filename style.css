@@ -134,7 +134,7 @@ body {
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 8 cột cho bảng 8x8 */
+    grid-template-columns: repeat(6, 1fr); /* 8 cột cho bảng 8x8 */
     gap: 5px;
     background: #bbada0;
     padding: 10px;

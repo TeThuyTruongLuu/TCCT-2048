@@ -1,6 +1,6 @@
 const characterImages = {}; // Lưu hình gán cho các giá trị tile
 const tileValues = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
-const gridSize = 8;
+const gridSize = 6;
 let grid = [];
 let timer = 0; // Biến đếm thời gian
 let timerInterval; // Biến lưu interval để dừng/khởi động timer
@@ -159,13 +159,13 @@ function getTileColor(value) {
 
 // Khởi động lại game
 function restartGame() {
-    stopTimer(); // Dừng timer cũ
-    timerStarted = false;
-	document.getElementById("timer").textContent = "Time: 00:00"; // Hiển thị mặc định
-    startTimer(); // Bắt đầu lại timer mới
+    stopTimer(); // Dừng timer hiện tại
+    timerStarted = false; // Đặt lại trạng thái để khởi động timer khi di chuyển lần đầu
+    document.getElementById("timer").textContent = "Time: 00:00"; // Hiển thị mặc định
     createBoard(); // Reset bảng chơi
     renderBoard(); // Hiển thị lại bảng
 }
+
 
 
 // Đếm thời gian
@@ -220,7 +220,10 @@ createBoard();
 // Di chuyển ô theo hướng
 function move(direction) {
     let moved = false;
-	startTimer();
+    if (!timerStarted) {
+        timerStarted = true;
+        startTimer();
+    }
 
     if (direction === "left") {
         for (let row = 0; row < gridSize; row++) {
