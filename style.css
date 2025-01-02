@@ -144,5 +144,6 @@ body {
     width: 500px; /* Đặt chiều rộng cụ thể */
     height: 500px; /* Đặt chiều cao cụ thể */
     margin: 0 auto; /* Canh giữa bảng game */
+	touch-action: none;
 }
 
