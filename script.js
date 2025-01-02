@@ -224,7 +224,7 @@ function getTileColor(value) {
 function restartGame() {
     stopTimer(); // Dừng timer hiện tại
     timerStarted = false; // Đặt lại trạng thái để khởi động timer khi di chuyển lần đầu
-    document.getElementById("timer").textContent = "Time: 00:00"; // Hiển thị mặc định
+    document.getElementById("timer").textContent = "Thời gian bị bào: 00:00"; // Hiển thị mặc định
     createBoard(); // Reset bảng chơi
     renderBoard(); // Hiển thị lại bảng
 }
@@ -379,7 +379,7 @@ function checkGameOver() {
 				stopTimer();
 				const minutes = Math.floor(timer / 60);
 				const seconds = timer % 60;
-                alert(`Hooray! Bồ đã hoàn thành 2048 trong ${formatTime(minutes)}:${formatTime(seconds)}!`);
+                alert(`Hooray! Chúc mừng bồ tu thành chính quả 2048 vẻ mặt sau ${formatTime(minutes)}:${formatTime(seconds)} bị bào mòn bởi tư bản!`);
                 restartGame();
                 return;
             }
@@ -391,7 +391,7 @@ function checkGameOver() {
 		stopTimer();
 		const minutes = Math.floor(timer / 60);
 		const seconds = timer % 60;
-        alert("Game Over! Bí lối rồi.");
+        alert("Tèo, tư bản chiếu tướng bồ rồi.");
         restartGame();
     }
 }
