@@ -5,7 +5,7 @@ let grid = [];
 let timer = 0; // Biến đếm thời gian
 let timerInterval; // Biến lưu interval để dừng/khởi động timer
 let timerStarted = false;
-
+let draggedImage = null;
 
 // Chọn nhân vật
 document.querySelectorAll(".character").forEach((character) => {
@@ -37,6 +37,20 @@ function loadCharacterTiles(charId) {
     }
 }
 
+document.querySelectorAll("#character-tiles img").forEach((img) => {
+    // Sự kiện chuột (desktop)
+    img.addEventListener("dragstart", (e) => {
+        draggedImage = e.target; // Lưu hình ảnh đang kéo
+    });
+
+    // Sự kiện cảm ứng (điện thoại)
+    img.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Ngăn hành vi mặc định
+        draggedImage = e.target; // Lưu hình ảnh đang kéo
+    });
+});
+
+
 // Kéo thả hình ảnh vào tiles
 document.querySelectorAll(".tile-slot").forEach((slot) => {
     slot.addEventListener("dragover", (e) => e.preventDefault());
@@ -49,6 +63,34 @@ document.querySelectorAll(".tile-slot").forEach((slot) => {
         // Gán ảnh
         slot.innerHTML = `<img src="images/${charId} (${tileIndex}).png" alt="Tile">`;
         characterImages[tileValue] = `images/${charId} (${tileIndex}).png`;
+    });
+    slot.addEventListener("touchend", (e) => {
+        if (draggedImage) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+
+            // Kiểm tra nếu vị trí thả nằm trong slot
+            const slotRect = slot.getBoundingClientRect();
+            if (
+                touchEndX >= slotRect.left &&
+                touchEndX <= slotRect.right &&
+                touchEndY >= slotRect.top &&
+                touchEndY <= slotRect.bottom
+            ) {
+                slot.innerHTML = ""; // Xóa nội dung cũ
+                const imgClone = draggedImage.cloneNode(true); // Tạo bản sao hình ảnh
+                imgClone.style.width = "100%";
+                imgClone.style.height = "100%";
+                imgClone.style.objectFit = "cover";
+                slot.appendChild(imgClone);
+
+                // Gán hình ảnh vào slot
+                const tileValue = slot.dataset.value;
+                characterImages[tileValue] = draggedImage.src;
+
+                draggedImage = null; // Reset hình ảnh kéo
+            }
+        }
     });
 });
 
