@@ -4,6 +4,7 @@ const gridSize = 8;
 let grid = [];
 let timer = 0; // Biến đếm thời gian
 let timerInterval; // Biến lưu interval để dừng/khởi động timer
+let timerStarted = false;
 
 
 // Chọn nhân vật
@@ -159,8 +160,8 @@ function getTileColor(value) {
 // Khởi động lại game
 function restartGame() {
     stopTimer(); // Dừng timer cũ
-    timer = 0;
-    document.getElementById("timer").textContent = `Time: 0s`;
+    timerStarted = false;
+	document.getElementById("timer").textContent = "Time: 00:00"; // Hiển thị mặc định
     startTimer(); // Bắt đầu lại timer mới
     createBoard(); // Reset bảng chơi
     renderBoard(); // Hiển thị lại bảng
@@ -173,16 +174,25 @@ function startTimer() {
     timer = 0; // Reset lại thời gian
     if (timerInterval) clearInterval(timerInterval); // Đảm bảo không có interval cũ đang chạy
 
-    // Tạo timer mới
     timerInterval = setInterval(() => {
         timer++;
-        timerElement.textContent = `Time: ${timer}s`; // Cập nhật giao diện
-    }, 1000); // Mỗi giây cập nhật một lần
+        const minutes = Math.floor(timer / 60); // Tính số phút
+        const seconds = timer % 60; // Tính số giây còn lại
+        timerElement.textContent = `Time: ${formatTime(minutes)}:${formatTime(seconds)}`; // Hiển thị thời gian
+    }, 1000);
+}
+
+// Hàm định dạng thời gian
+function formatTime(value) {
+    return value < 10 ? `0${value}` : value; // Thêm số 0 nếu giá trị < 10
 }
 
 
 function stopTimer() {
-    clearInterval(timerInterval); // Dừng interval
+    if (timerInterval) {
+        clearInterval(timerInterval); // Xóa interval
+        timerInterval = null; // Đặt lại biến
+    }
 }
 
 
@@ -206,11 +216,11 @@ document.getElementById("restart-button").addEventListener("click", restartGame)
 
 // Bắt đầu game
 createBoard();
-startTimer();
 
 // Di chuyển ô theo hướng
 function move(direction) {
     let moved = false;
+	startTimer();
 
     if (direction === "left") {
         for (let row = 0; row < gridSize; row++) {
@@ -281,7 +291,9 @@ function checkGameOver() {
         for (let col = 0; col < gridSize; col++) {
             if (grid[row][col] === 2048) {
 				stopTimer();
-                alert(`Congratulations! You reached 2048 in ${timer} seconds!`);
+				const minutes = Math.floor(timer / 60);
+				const seconds = timer % 60;
+                alert(`Hooray! Bồ đã hoàn thành 2048 trong ${formatTime(minutes)}:${formatTime(seconds)}!`);
                 restartGame();
                 return;
             }
@@ -291,7 +303,9 @@ function checkGameOver() {
     // Kiểm tra còn nước đi nào không
     if (!canMove()) {
 		stopTimer();
-        alert("Game Over! No moves left.");
+		const minutes = Math.floor(timer / 60);
+		const seconds = timer % 60;
+        alert("Game Over! Bí lối rồi.");
         restartGame();
     }
 }
