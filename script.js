@@ -194,8 +194,11 @@ function addRandomTile() {
 
     if (emptyTiles.length > 0) {
         const { x, y } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
-        grid[x][y] = Math.random() < 0.8 ? 2 : 4; // 90% là 2, 10% là 4
+        grid[x][y] = Math.random() < 0.8 ? 2 : 4; // 80% là 2, 20% là 4
+        return true; // Thêm thành công
     }
+
+    return false; // Không thêm được tile mới
 }
 
 
@@ -358,9 +361,15 @@ function move(direction) {
     }
 
     if (moved) {
-        addRandomTile();
+        addRandomTile(); // Thêm ô mới trước
         renderBoard();
-        checkGameOver(); // Kiểm tra điều kiện thắng/thua
+
+        // Kiểm tra Game Over sau khi ô mới được hiển thị
+        setTimeout(() => {
+            if (!canMove()) {
+                checkGameOver();
+            }
+        }, 100); // Chờ để ô mới được hiển thị
     }
 }
 
