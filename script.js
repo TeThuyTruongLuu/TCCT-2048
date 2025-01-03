@@ -48,18 +48,16 @@ function handleMusicSelection() {
         youtubeInputContainer.style.display = "block"; // Hiển thị ô nhập URL
     } else {
         youtubeInputContainer.style.display = "none"; // Ẩn ô nhập URL
-        playLocalMusic(`musics/${selectedMusic}.mp3`); // Phát nhạc từ folder
+        const videoId = extractYouTubeVideoID(selectedMusic);
+        if (videoId) {
+            playYouTubeMusic(videoId); // Phát nhạc từ YouTube
+        } else {
+            console.error("URL YouTube không hợp lệ.");
+        }
     }
 }
 
-// Hàm phát nhạc từ folder (nhạc có sẵn)
-function playLocalMusic(src) {
-    const audioElement = document.getElementById("backgroundMusic");
-    stopMusic(); // Dừng nhạc hiện tại (nếu có)
-    audioElement.src = src;
-    audioElement.play();
-    console.log(`Playing local music: ${src}`);
-}
+
 
 // Hàm xử lý khi nhập URL YouTube
 function handleCustomMusic() {
