@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048 cách tư bản bào mòn tui</title>
     <link rel="stylesheet" href="style.css">
+	<script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
     <div id="character-selection">
@@ -49,21 +50,26 @@
 
 	<div id="game-container" style="display: none;">
 		<h1>2048 cách tư bản bào mòn tui</h1>
-		<div id="timer" style="margin-bottom: 10px;">Thời gian bị bào: 00:00</div> <!-- Thêm timer -->
 		
-		<h3>Nhạc chill trong lúc bị bào</h3>
+		<h3 style="font-weight: normal;"><i>Nhạc chill trong lúc bị bào</i></h3>
 		<select id="musicDropdown" onchange="handleMusicSelection()">
-			<option value="song1">Bài hát 1</option>
+			<option value="William Tell Oventure Finale">William Tell Oventure: Finale</option>
 			<option value="song2">Bài hát 2</option>
 			<option value="song3">Bài hát 3</option>
 			<option value="song4">Bài hát 4</option>
 			<option value="custom">Khác</option>
 		</select>
+		
 		<div id="youtubeInputContainer" style="display: none;">
 			<label for="youtubeUrl">Nhập URL YouTube:</label>
 			<input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
 		</div>
 		
+		<audio id="backgroundMusic" loop></audio>
+		<div id="youtubePlayer" style="width: 0; height: 0; overflow: hidden;"></div>
+
+		<div id="timer" style="margin-bottom: 10px;">Thời gian bị bào: 00:00</div> <!-- Thêm timer -->
+
 		<div id="game-board">
 			<!-- Bảng game -->
 		</div>

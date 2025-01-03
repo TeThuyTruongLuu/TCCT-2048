@@ -149,7 +149,52 @@ h1, h2 {
                  0 0 15px rgba(255, 255, 255, 0.5); /* Glow cường độ cao */
 }
 
+#musicDropdown {
+    font-size: 16px;
+    padding: 8px 12px; /* Nội dung bên trong */
+    border: 2px solid #ccc;
+    border-radius: 8px; /* Bo góc */
+    background-color: #f9f9f9;
+    color: #3c3a32;
+    display: block;
+    margin: 0 auto; /* Căn giữa */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
+    transition: all 0.2s ease; /* Hiệu ứng hover */
+	margin-bottom: 20px;
+}
 
+#musicDropdown:hover {
+    border-color: #ff7f50; /* Màu viền nổi bật hơn khi hover */
+    background-color: #fff; /* Màu nền sáng hơn */
+}
+
+/* Style cho ô nhập URL nếu hiện */
+#youtubeInputContainer {
+    margin-top: 5px; /* Khoảng cách với dropdown */
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+#youtubeInputContainer label {
+    font-size: 14px;
+    color: #3c3a32;
+}
+
+#youtubePlayer {
+    display: none; /* Ẩn video */
+}
+
+#youtubeUrl {
+    font-size: 14px;
+    padding: 6px 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 80%; /* Chiều rộng vừa phải */
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 /* Bảng game */
 #game-container {

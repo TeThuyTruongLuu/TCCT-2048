@@ -11,6 +11,118 @@ let touchStartY = 0; // Tọa độ Y khi bắt đầu vuốt
 let touchEndX = 0; // Tọa độ X khi kết thúc vuốt
 let touchEndY = 0; // Tọa độ Y khi kết thúc vuốt
 
+// Biến lưu trữ trạng thái
+let selectedMusic = ""; // Nhạc đã chọn
+let youtubePlayer; // Player YouTube
+
+// Khi YouTube IFrame API đã sẵn sàng
+function onYouTubeIframeAPIReady() {
+    youtubePlayer = new YT.Player('youtubePlayer', {
+        height: '0', // Ẩn video
+        width: '0',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    console.log("YouTube Player is ready.");
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+        console.log("Music from YouTube has ended.");
+    }
+}
+
+// Hàm xử lý khi người dùng chọn nhạc
+function handleMusicSelection() {
+    const dropdown = document.getElementById("musicDropdown");
+    const youtubeInputContainer = document.getElementById("youtubeInputContainer");
+
+    selectedMusic = dropdown.value;
+
+    if (selectedMusic === "custom") {
+        youtubeInputContainer.style.display = "block"; // Hiển thị ô nhập URL
+    } else {
+        youtubeInputContainer.style.display = "none"; // Ẩn ô nhập URL
+        playLocalMusic(`musics/${selectedMusic}.mp3`); // Phát nhạc từ folder
+    }
+}
+
+// Hàm phát nhạc từ folder (nhạc có sẵn)
+function playLocalMusic(src) {
+    const audioElement = document.getElementById("backgroundMusic");
+    stopMusic(); // Dừng nhạc hiện tại (nếu có)
+    audioElement.src = src;
+    audioElement.play();
+    console.log(`Playing local music: ${src}`);
+}
+
+// Hàm xử lý khi nhập URL YouTube
+function handleCustomMusic() {
+    const youtubeUrl = document.getElementById("youtubeUrl").value;
+    if (!youtubeUrl) {
+        alert("Vui lòng nhập URL YouTube.");
+        return;
+    }
+
+    const videoId = extractYouTubeVideoID(youtubeUrl);
+    if (!videoId) {
+        alert("URL YouTube không hợp lệ. Vui lòng thử lại.");
+        return;
+    }
+
+    playYouTubeMusic(videoId); // Phát nhạc từ YouTube
+}
+
+// Hàm tách video ID từ URL YouTube
+function extractYouTubeVideoID(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
+
+// Hàm phát nhạc từ YouTube
+function playYouTubeMusic(videoId) {
+    stopMusic(); // Dừng nhạc hiện tại (nếu có)
+    youtubePlayer.loadVideoById({
+        videoId: videoId,
+        startSeconds: 0, // Phát từ đầu video
+    });
+    youtubePlayer.playVideo();
+    console.log(`Playing YouTube music with video ID: ${videoId}`);
+}
+
+// Hàm dừng nhạc
+function stopMusic() {
+    const audioElement = document.getElementById("backgroundMusic");
+    if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0; // Reset thời gian
+    }
+    if (youtubePlayer && youtubePlayer.stopVideo) {
+        youtubePlayer.stopVideo();
+    }
+}
+
+// Dừng nhạc khi người chơi thua
+function checkGameOver() {
+    if (!canMove()) {
+        stopTimer();
+        stopMusic(); // Dừng nhạc khi thua
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        alert(`Tèo, tư bản chiếu tướng bồ rồi sau ${formatTime(minutes)}:${formatTime(seconds)}.`);
+        restartGame();
+    }
+}
+
+
+
+
 
 // Chọn nhân vật
 document.querySelectorAll(".character").forEach((character) => {
@@ -433,6 +545,7 @@ function checkGameOver() {
     // Kiểm tra còn nước đi nào không
     if (!canMove()) {
 		stopTimer();
+		stopMusic();
 		const minutes = Math.floor(timer / 60);
 		const seconds = timer % 60;
         alert("Tèo, tư bản chiếu tướng bồ rồi.");
