@@ -50,11 +50,27 @@
 	<div id="game-container" style="display: none;">
 		<h1>2048 cách tư bản bào mòn tui</h1>
 		<div id="timer" style="margin-bottom: 10px;">Thời gian bị bào: 00:00</div> <!-- Thêm timer -->
+		
+		<h3>Nhạc chill trong lúc bị bào</h3>
+		<select id="musicDropdown" onchange="handleMusicSelection()">
+			<option value="song1">Bài hát 1</option>
+			<option value="song2">Bài hát 2</option>
+			<option value="song3">Bài hát 3</option>
+			<option value="song4">Bài hát 4</option>
+			<option value="custom">Khác</option>
+		</select>
+		<div id="youtubeInputContainer" style="display: none;">
+			<label for="youtubeUrl">Nhập URL YouTube:</label>
+			<input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+		</div>
+		
 		<div id="game-board">
 			<!-- Bảng game -->
 		</div>
 		<button id="restart-button">Reset cuộc đời</button>
 	</div>
+
+	<audio id="backgroundMusic" loop></audio>
 
 	<script src="DragDropTouch.js"></script>
     <script src="script.js"></script>
