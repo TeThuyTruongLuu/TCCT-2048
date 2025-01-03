@@ -198,6 +198,8 @@ function addRandomTile() {
     }
 }
 
+
+
 const tileNames = {
     2: "Mới tình",
     4: "Ra khỏi nhà",
@@ -390,6 +392,21 @@ function compressAndMerge(line) {
 
 // Kiểm tra điều kiện thắng/thua
 function checkGameOver() {
+    // Kiểm tra còn ô trống hay không
+    for (let i = 0; i < gridSize.rows; i++) {
+        for (let j = 0; j < gridSize.cols; j++) {
+            if (grid[i][j] === 0) return false; // Còn ô trống, không thua
+        }
+    }
+
+    // Kiểm tra có thể gộp ô không
+    for (let i = 0; i < gridSize.rows; i++) {
+        for (let j = 0; j < gridSize.cols; j++) {
+            if (j < gridSize.cols - 1 && grid[i][j] === grid[i][j + 1]) return false; // Gộp ngang
+            if (i < gridSize.rows - 1 && grid[i][j] === grid[i + 1][j]) return false; // Gộp dọc
+        }
+    }
+	
     // Kiểm tra có ô nào đạt 2048 không
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
@@ -413,6 +430,7 @@ function checkGameOver() {
         restartGame();
     }
 }
+
 
 // Kiểm tra có thể di chuyển được không
 function canMove() {
