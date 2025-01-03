@@ -1,10 +1,11 @@
 /* Tổng quan */
 @font-face {
     font-family: '000 Chinacat [TeddyBear]'; /* Tên bạn muốn đặt cho font */
-    src: url('./fonts/000 Chinacat [TeddyBear].otf') format('truetype'); /* Đường dẫn đến file font */
+    src: url('./fonts/000 Chinacat [TeddyBear].ttf') format('truetype'); /* Đường dẫn đến file font */
     font-weight: thin; /* Trọng lượng mặc định */
     font-style: normal; /* Kiểu mặc định */
 }
+
 
 body {
     font-family: '000 Chinacat [TeddyBear]';
@@ -134,13 +135,13 @@ h1, h2 {
 /* Layer chữ */
 .tile .tile-text {
     position: absolute;
-    top: 80%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 16px;
-	font-weight: 100px;
-    color: black;
+
     z-index: 3;
+
+    font-size: 16px; /* Điều chỉnh kích thước chữ */
     text-align: center;
     opacity: 1;
     text-shadow: 0 0 5px rgba(255, 255, 255, 1), /* Glow cường độ thấp */
