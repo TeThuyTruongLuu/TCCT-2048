@@ -86,19 +86,12 @@ function extractYouTubeVideoID(url) {
 
 // Hàm phát nhạc từ YouTube
 function playYouTubeMusic(videoId) {
-    if (!youtubePlayer || !youtubePlayer.loadVideoById) {
-        alert("YouTube Player chưa sẵn sàng. Vui lòng thử lại sau.");
-        console.error("YouTube Player chưa được khởi tạo hoặc không hợp lệ.");
-        return;
-    }
-
-    stopMusic(); // Dừng nhạc hiện tại
     youtubePlayer.loadVideoById({
         videoId: videoId,
-        startSeconds: 0, // Phát từ đầu video
+        startSeconds: 0, // Bắt đầu từ đầu video
     });
     youtubePlayer.playVideo();
-    console.log(`Playing YouTube music with video ID: ${videoId}`);
+    document.getElementById("youtubePlayer").style.display = "block"; // Hiển thị nếu cần
 }
 
 
