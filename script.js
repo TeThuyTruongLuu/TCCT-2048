@@ -88,10 +88,10 @@ function extractYouTubeVideoID(url) {
 function playYouTubeMusic(videoId) {
     youtubePlayer.loadVideoById({
         videoId: videoId,
-        startSeconds: 0, // Bắt đầu từ đầu video
+        startSeconds: 0, // Phát từ đầu video
     });
     youtubePlayer.playVideo();
-    document.getElementById("youtubePlayer").style.display = "block"; // Hiển thị nếu cần
+    console.log(`Playing music from video ID: ${videoId}`);
 }
 
 
