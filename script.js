@@ -17,15 +17,16 @@ let youtubePlayer; // Player YouTube
 
 // Khi YouTube IFrame API đã sẵn sàng
 function onYouTubeIframeAPIReady() {
-    youtubePlayer = new YT.Player('youtubePlayer', {
-        height: '0', // Ẩn video
-        width: '0',
+    youtubePlayer = new YT.Player("youtubePlayer", {
+        height: "0",
+        width: "0",
         events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+        },
     });
 }
+
 
 function onPlayerReady(event) {
     console.log("YouTube Player is ready.");
@@ -33,7 +34,7 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
-        console.log("Music from YouTube has ended.");
+        console.log("YouTube music has ended.");
     }
 }
 
