@@ -28,6 +28,23 @@ function onYouTubeIframeAPIReady() {
 }
 
 
+// Hàm tách video ID từ URL YouTube
+function extractYouTubeVideoID(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
+
+// Hàm phát nhạc từ YouTube
+function playYouTubeMusic(videoId) {
+    youtubePlayer.loadVideoById({
+        videoId: videoId,
+        startSeconds: 0, // Phát từ đầu video
+    });
+    youtubePlayer.playVideo();
+    console.log(`Playing music from video ID: ${videoId}`);
+}
+
 function onPlayerReady(event) {
     console.log("YouTube Player is ready.");
 }
@@ -77,22 +94,6 @@ function handleCustomMusic() {
     playYouTubeMusic(videoId); // Phát nhạc từ YouTube
 }
 
-// Hàm tách video ID từ URL YouTube
-function extractYouTubeVideoID(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
-}
-
-// Hàm phát nhạc từ YouTube
-function playYouTubeMusic(videoId) {
-    youtubePlayer.loadVideoById({
-        videoId: videoId,
-        startSeconds: 0, // Phát từ đầu video
-    });
-    youtubePlayer.playVideo();
-    console.log(`Playing music from video ID: ${videoId}`);
-}
 
 
 // Hàm dừng nhạc
