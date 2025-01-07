@@ -144,11 +144,13 @@ h1, h2 {
 
     font-size: 14px; /* Điều chỉnh kích thước chữ */
     text-align: center;
+	white-space: nowrap;
     opacity: 1;
     text-shadow: 0 0 5px rgba(255, 255, 255, 1), /* Glow cường độ thấp */
                  0 0 10px rgba(255, 255, 255, 0.8), /* Glow cường độ trung bình */
                  0 0 15px rgba(255, 255, 255, 0.5); /* Glow cường độ cao */
 }
+
 
 #musicDropdown {
     font-size: 16px;
