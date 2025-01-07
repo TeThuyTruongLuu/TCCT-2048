@@ -14,6 +14,7 @@ let touchEndY = 0; // Tọa độ Y khi kết thúc vuốt
 // Biến lưu trữ trạng thái
 let selectedMusic = ""; // Nhạc đã chọn
 let youtubePlayer; // Player YouTube
+let currentMusicSource = null;
 
 // Khi YouTube IFrame API đã sẵn sàng
 function onYouTubeIframeAPIReady() {
@@ -99,17 +100,36 @@ function stopMusic() {
     }
 }
 
+function pauseMusic() {
+    if (currentMusicSource === "youtube" && youtubePlayer) {
+        youtubePlayer.pauseVideo();
+        console.log("YouTube music paused.");
+    } else if (currentMusicSource === "local" && localAudio) {
+        localAudio.pause();
+        console.log("Local music paused.");
+    } else {
+        console.log("No music is playing.");
+    }
+}
 
 // Hàm phát nhạc từ YouTube
 function playYouTubeMusic(videoId) {
+    if (!youtubePlayer || typeof youtubePlayer.loadVideoById !== "function") {
+        alert("YouTube Player chưa sẵn sàng. Vui lòng thử lại sau.");
+        return;
+    }
+
+    stopMusic(); // Dừng nhạc hiện tại trước khi phát nhạc mới
     youtubePlayer.loadVideoById({
         videoId: videoId,
-        startSeconds: 0, // Phát từ đầu video
+        startSeconds: 0,
 		loop: 1,
     });
     youtubePlayer.playVideo();
-    console.log(`Playing music from video ID: ${videoId}`);
+    currentMusicSource = "youtube"; // Đánh dấu nguồn nhạc là YouTube
+    console.log(`Playing music from YouTube video ID: ${videoId}`);
 }
+
 
 // Dừng nhạc khi người chơi thua
 function checkGameOver() {
