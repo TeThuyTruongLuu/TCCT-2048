@@ -35,16 +35,6 @@ function extractYouTubeVideoID(url) {
     return match ? (match[1] || match[2]) : null;
 }
 
-// Hàm phát nhạc từ YouTube
-function playYouTubeMusic(videoId) {
-    youtubePlayer.loadVideoById({
-        videoId: videoId,
-        startSeconds: 0, // Phát từ đầu video
-		loop: 1,
-    });
-    youtubePlayer.playVideo();
-    console.log(`Playing music from video ID: ${videoId}`);
-}
 
 function onPlayerReady(event) {
     console.log("YouTube Player is ready.");
@@ -107,6 +97,18 @@ function stopMusic() {
     if (youtubePlayer && youtubePlayer.stopVideo) {
         youtubePlayer.stopVideo();
     }
+}
+
+
+// Hàm phát nhạc từ YouTube
+function playYouTubeMusic(videoId) {
+    youtubePlayer.loadVideoById({
+        videoId: videoId,
+        startSeconds: 0, // Phát từ đầu video
+		loop: 1,
+    });
+    youtubePlayer.playVideo();
+    console.log(`Playing music from video ID: ${videoId}`);
 }
 
 // Dừng nhạc khi người chơi thua
