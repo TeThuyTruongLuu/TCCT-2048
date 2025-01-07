@@ -420,6 +420,14 @@ document.addEventListener("keydown", (e) => {
     else if (e.key === "ArrowDown") move("down");
 });
 
+document.addEventListener("keydown", function (event) {
+    const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+    if (arrowKeys.includes(event.key)) {
+        event.preventDefault(); // Ngăn hành vi mặc định của trình duyệt
+    }
+});
+
+
 // Lắng nghe nút Restart
 document.getElementById("restart-button").addEventListener("click", restartGame);
 
