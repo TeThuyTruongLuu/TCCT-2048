@@ -13,6 +13,7 @@ body {
     background-color: #faf8ef;
     margin: 0;
     padding: 20px;
+	font-size: 14px;
 }
 
 h1, h2 {
@@ -160,7 +161,8 @@ h1, h2 {
     margin: 0 auto; /* Căn giữa */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
     transition: all 0.2s ease; /* Hiệu ứng hover */
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	font-size: 1vw;
 }
 
 #musicDropdown:hover {
@@ -240,8 +242,8 @@ h1, h2 {
     background: #bbada0;
     padding: 10px;
     border-radius: 10px;
-    width: 500px; /* Đặt chiều rộng cụ thể */
-    height: 500px; /* Đặt chiều cao cụ thể */
+    width: 400px; /* Đặt chiều rộng cụ thể */
+    height: 400px; /* Đặt chiều cao cụ thể */
     margin: 0 auto; /* Canh giữa bảng game */
 	touch-action: none;
 }
