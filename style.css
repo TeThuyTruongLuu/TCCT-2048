@@ -142,7 +142,7 @@ h1, h2 {
 
     z-index: 3;
 
-    font-size: 16px; /* Điều chỉnh kích thước chữ */
+    font-size: 14px; /* Điều chỉnh kích thước chữ */
     text-align: center;
     opacity: 1;
     text-shadow: 0 0 5px rgba(255, 255, 255, 1), /* Glow cường độ thấp */
@@ -242,8 +242,8 @@ h1, h2 {
     background: #bbada0;
     padding: 10px;
     border-radius: 10px;
-    width: 400px; /* Đặt chiều rộng cụ thể */
-    height: 400px; /* Đặt chiều cao cụ thể */
+    width: 500px; /* Đặt chiều rộng cụ thể */
+    height: 500px; /* Đặt chiều cao cụ thể */
     margin: 0 auto; /* Canh giữa bảng game */
 	touch-action: none;
 }
