@@ -40,6 +40,7 @@ function playYouTubeMusic(videoId) {
     youtubePlayer.loadVideoById({
         videoId: videoId,
         startSeconds: 0, // Phát từ đầu video
+		loop: 1,
     });
     youtubePlayer.playVideo();
     console.log(`Playing music from video ID: ${videoId}`);
