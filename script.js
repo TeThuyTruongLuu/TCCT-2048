@@ -90,14 +90,11 @@ function handleCustomMusic() {
 
 // Hàm dừng nhạc
 function stopMusic() {
-    const audioElement = document.getElementById("backgroundMusic");
-    if (audioElement) {
-        audioElement.pause();
-        audioElement.currentTime = 0; // Reset thời gian
-    }
-    if (youtubePlayer && youtubePlayer.stopVideo) {
+    if (youtubePlayer && typeof youtubePlayer.stopVideo === "function") {
         youtubePlayer.stopVideo();
     }
+    currentMusicSource = null; // Xóa trạng thái nguồn nhạc
+    console.log("All music stopped.");
 }
 
 function pauseMusic() {

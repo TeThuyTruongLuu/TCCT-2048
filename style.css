@@ -211,6 +211,21 @@ h1, h2 {
     background-color: #e65100;
 }
 
+#pauseMusicButton {
+    background-color: #d32f2f;
+    color: white;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#pauseMusicButton:hover {
+    background-color: #b71c1c;
+}
+
 
 /* Bảng game */
 #game-container {
