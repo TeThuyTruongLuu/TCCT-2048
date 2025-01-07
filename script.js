@@ -11,121 +11,92 @@ let touchStartY = 0; // Tọa độ Y khi bắt đầu vuốt
 let touchEndX = 0; // Tọa độ X khi kết thúc vuốt
 let touchEndY = 0; // Tọa độ Y khi kết thúc vuốt
 
-// Biến lưu trữ trạng thái
-let selectedMusic = ""; // Nhạc đã chọn
+// Biến lưu trạng thái
 let youtubePlayer; // Player YouTube
-let currentMusicSource = null;
+let currentMusicSource = null; // Trạng thái nguồn nhạc (YouTube)
 
-// Khi YouTube IFrame API đã sẵn sàng
+// Hàm khởi tạo YouTube Player API
 function onYouTubeIframeAPIReady() {
     youtubePlayer = new YT.Player("youtubePlayer", {
         height: "0",
         width: "0",
         events: {
-            onReady: onPlayerReady,
-            onStateChange: onPlayerStateChange,
+            onReady: () => console.log("YouTube Player is ready."),
+            onStateChange: (event) => {
+                if (event.data === YT.PlayerState.ENDED) {
+                    console.log("YouTube music has ended.");
+                }
+            },
         },
     });
 }
 
-
 // Hàm tách video ID từ URL YouTube
 function extractYouTubeVideoID(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/.*v=([a-zA-Z0-9_-]+)|youtu\.be\/([a-zA-Z0-9_-]+)/;
+    const regex = /(?:https?:\/\/)?(?:www\.)?(youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
     const match = url.match(regex);
-    return match ? (match[1] || match[2]) : null;
+    return match ? match[2] : null;
 }
 
-
-function onPlayerReady(event) {
-    console.log("YouTube Player is ready.");
-}
-
-function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-        console.log("YouTube music has ended.");
-    }
-}
-
-// Hàm xử lý khi người dùng chọn nhạc
+// Hàm xử lý chọn nhạc từ dropdown
 function handleMusicSelection() {
     const dropdown = document.getElementById("musicDropdown");
     const youtubeInputContainer = document.getElementById("youtubeInputContainer");
-
-    selectedMusic = dropdown.value;
+    const selectedMusic = dropdown.value;
 
     if (selectedMusic === "custom") {
         youtubeInputContainer.style.display = "block"; // Hiển thị ô nhập URL
     } else {
         youtubeInputContainer.style.display = "none"; // Ẩn ô nhập URL
         const videoId = extractYouTubeVideoID(selectedMusic);
-        if (videoId) {
-            playYouTubeMusic(videoId); // Phát nhạc từ YouTube
-        } else {
-            console.error("URL YouTube không hợp lệ.");
-        }
+        videoId ? playYouTubeMusic(videoId) : alert("URL YouTube không hợp lệ.");
     }
 }
 
-
-
-// Hàm xử lý khi nhập URL YouTube
+// Hàm xử lý khi người dùng nhập URL YouTube
 function handleCustomMusic() {
-    const youtubeUrl = document.getElementById("youtubeUrl").value;
-    if (!youtubeUrl) {
-        alert("Vui lòng nhập URL YouTube.");
-        return;
-    }
-
+    const youtubeUrl = document.getElementById("youtubeUrl").value.trim();
     const videoId = extractYouTubeVideoID(youtubeUrl);
-    if (!videoId) {
-        alert("URL YouTube không hợp lệ. Vui lòng thử lại.");
-        return;
-    }
 
-    playYouTubeMusic(videoId); // Phát nhạc từ YouTube
+    if (videoId) {
+        playYouTubeMusic(videoId);
+    } else {
+        alert("URL YouTube không hợp lệ. Vui lòng thử lại.");
+    }
 }
 
-
+// Hàm phát nhạc từ YouTube
+function playYouTubeMusic(videoId) {
+    if (youtubePlayer && typeof youtubePlayer.loadVideoById === "function") {
+        stopMusic(); // Dừng nhạc hiện tại trước khi phát nhạc mới
+        youtubePlayer.loadVideoById({ videoId, startSeconds: 0 });
+        youtubePlayer.playVideo();
+        currentMusicSource = "youtube";
+        console.log(`Playing music from YouTube video ID: ${videoId}`);
+    } else {
+        alert("YouTube Player chưa sẵn sàng. Vui lòng thử lại sau.");
+    }
+}
 
 // Hàm dừng nhạc
 function stopMusic() {
     if (youtubePlayer && typeof youtubePlayer.stopVideo === "function") {
         youtubePlayer.stopVideo();
     }
-    currentMusicSource = null; // Xóa trạng thái nguồn nhạc
-    console.log("All music stopped.");
+    currentMusicSource = null;
+    console.log("Music stopped.");
 }
 
+// Hàm tạm dừng nhạc
 function pauseMusic() {
     if (currentMusicSource === "youtube" && youtubePlayer) {
         youtubePlayer.pauseVideo();
         console.log("YouTube music paused.");
-    } else if (currentMusicSource === "local" && localAudio) {
-        localAudio.pause();
-        console.log("Local music paused.");
     } else {
         console.log("No music is playing.");
     }
 }
 
-// Hàm phát nhạc từ YouTube
-function playYouTubeMusic(videoId) {
-    if (!youtubePlayer || typeof youtubePlayer.loadVideoById !== "function") {
-        alert("YouTube Player chưa sẵn sàng. Vui lòng thử lại sau.");
-        return;
-    }
-
-    stopMusic(); // Dừng nhạc hiện tại trước khi phát nhạc mới
-    youtubePlayer.loadVideoById({
-        videoId: videoId,
-        startSeconds: 0,
-		loop: 1,
-    });
-    youtubePlayer.playVideo();
-    currentMusicSource = "youtube"; // Đánh dấu nguồn nhạc là YouTube
-    console.log(`Playing music from YouTube video ID: ${videoId}`);
-}
 
 
 // Dừng nhạc khi người chơi thua
