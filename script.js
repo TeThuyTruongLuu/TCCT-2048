@@ -307,7 +307,7 @@ function addRandomTile() {
 
 
 const tileNames = {
-    2: "Vừa thức dậy",
+    2: "Mới tỉnh",
     4: "Ra khỏi nhà",
     8: "Đi làm",
     16: "Vào họp",
