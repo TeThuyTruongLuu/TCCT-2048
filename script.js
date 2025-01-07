@@ -30,9 +30,9 @@ function onYouTubeIframeAPIReady() {
 
 // Hàm tách video ID từ URL YouTube
 function extractYouTubeVideoID(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/.*v=([a-zA-Z0-9_-]+)|youtu\.be\/([a-zA-Z0-9_-]+)/;
     const match = url.match(regex);
-    return match ? match[1] : null;
+    return match ? (match[1] || match[2]) : null;
 }
 
 // Hàm phát nhạc từ YouTube
