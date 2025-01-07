@@ -61,14 +61,14 @@
 			<option value="custom">Khác</option>
 		</select>
 
-		<div>
-			<button id="playCustomMusicButton" onclick="handleCustomMusic()">Play</button>
-			<button id="pauseMusicButton" onclick="pauseMusic()">Pause</button>
-		</div>
-		
 		<div id="youtubeInputContainer" style="display: none;">
 			<label for="youtubeUrl">Nhập URL YouTube:</label>
 			<input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+		</div>
+		
+		<div>
+			<button id="playCustomMusicButton" onclick="handleCustomMusic()">Play</button>
+			<button id="pauseMusicButton" onclick="pauseMusic()">Pause</button>
 		</div>
 		
 		<audio id="backgroundMusic" loop></audio>
