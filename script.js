@@ -13,23 +13,40 @@ let touchEndY = 0; // Tọa độ Y khi kết thúc vuốt
 
 // Biến lưu trạng thái
 let youtubePlayer; // Player YouTube
+let youtubeReady = false;
 let currentMusicSource = null; // Trạng thái nguồn nhạc (YouTube)
 
-// Hàm khởi tạo YouTube Player API
+
+
 function onYouTubeIframeAPIReady() {
     youtubePlayer = new YT.Player("youtubePlayer", {
         height: "0",
         width: "0",
         events: {
-            onReady: () => console.log("YouTube Player is ready."),
-            onStateChange: (event) => {
+            onReady: function () {
+                youtubeReady = true;
+                console.log("YouTube Player is ready.");
+            },
+            onStateChange: function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
                     console.log("YouTube music has ended.");
                 }
-            },
-        },
+            }
+        }
     });
 }
+
+function checkYouTubeAPI(callback) {
+    if (youtubeReady) {
+        callback();
+    } else {
+        console.log("YouTube Player chưa sẵn sàng, chờ đợi...");
+        setTimeout(() => checkYouTubeAPI(callback), 1000); // Kiểm tra lại mỗi giây
+    }
+}
+
+
+
 
 // Hàm tách video ID từ URL YouTube
 function extractYouTubeVideoID(url) {
@@ -65,18 +82,21 @@ function handleCustomMusic() {
     }
 }
 
-// Hàm phát nhạc từ YouTube
+
 function playYouTubeMusic(videoId) {
-    if (youtubePlayer && typeof youtubePlayer.loadVideoById === "function") {
-        stopMusic(); // Dừng nhạc hiện tại trước khi phát nhạc mới
-        youtubePlayer.loadVideoById({ videoId, startSeconds: 0 });
-        youtubePlayer.playVideo();
-        currentMusicSource = "youtube";
-        console.log(`Playing music from YouTube video ID: ${videoId}`);
-    } else {
-        alert("YouTube Player chưa sẵn sàng. Vui lòng thử lại sau.");
-    }
+    checkYouTubeAPI(() => {
+        if (youtubePlayer && typeof youtubePlayer.loadVideoById === "function") {
+            stopMusic();
+            youtubePlayer.loadVideoById({ videoId, startSeconds: 0 });
+            youtubePlayer.playVideo();
+			currentMusicSource = "youtube";
+            console.log(`Playing music from YouTube video ID: ${videoId}`);
+        } else {
+            alert("YouTube Player chưa sẵn sàng. Refresh lại trang.");
+        }
+    });
 }
+
 
 // Hàm dừng nhạc
 function stopMusic() {
