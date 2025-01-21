@@ -392,8 +392,8 @@ h1, h2 {
 		background: #bbada0;
 		padding: 10px;
 		border-radius: 10px;
-		width: 90vw; /* Đặt chiều rộng cụ thể */
-		height: 90vw; /* Đặt chiều cao cụ thể */
+		width: 85vw; /* Đặt chiều rộng cụ thể */
+		height: 85vw; /* Đặt chiều cao cụ thể */
 		margin: 0 auto; /* Canh giữa bảng game */
 		touch-action: none;
 	}
