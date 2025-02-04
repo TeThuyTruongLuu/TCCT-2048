@@ -237,8 +237,8 @@ h1, h2 {
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 8 cột cho bảng 8x8 */
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr); /* 8 cột cho bảng 8x8 */
+    grid-template-rows: repeat(5, 1fr);
     gap: 5px;
     background: #bbada0;
     padding: 10px;
@@ -292,6 +292,14 @@ h1, h2 {
 }
 
 @media (max-width: 700px) {
+	#character-list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.2vw;
+		align-content: center;
+		margin: 0 auto;
+		justify-content: center;		
+	}
 	.character {
 		border: 2px solid #ddd;
 		border-radius: 5px;
@@ -301,8 +309,8 @@ h1, h2 {
 	}
 
 	.character img {
-		width: 100px;
-		height: 100px;
+		width: 25vw;
+		height: 25vw;
 		border-radius: 5px;
 		touch-action: none; /* Ngăn cuộn màn hình khi sử dụng cảm ứng */
 		cursor: grab;
@@ -342,7 +350,7 @@ h1, h2 {
 		text-align: center;
 		font-size: 2.5vw; /* Điều chỉnh kích thước chữ */
 		font-weight: bold;
-		line-height: 120px; /* Đảm bảo chữ nằm giữa theo chiều dọc */
+		line-height: 140px; /* Đảm bảo chữ nằm giữa theo chiều dọc */
 		color: #333; /* Màu chữ dễ đọc hơn */
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
 		transition: all 0.2s ease; /* Hiệu ứng chuyển đổi khi hover */
@@ -369,8 +377,11 @@ h1, h2 {
 	#youtubeInputContainer {
 		margin-top: 5px; /* Khoảng cách với dropdown */
 		text-align: center;
-		width: 100vw;
-		margin: 0 auto;
+		width: 100%; /* Chỉ chiếm toàn bộ chiều rộng của phần tử cha, không vượt khung */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column; /* Sắp xếp theo chiều dọc */
 		margin-bottom: 10px;
 	}
 
@@ -386,8 +397,8 @@ h1, h2 {
 
 	#game-board {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr); /* 8 cột cho bảng 8x8 */
-		grid-template-rows: repeat(4, 1fr);
+		grid-template-columns: repeat(5, 1fr); /* 8 cột cho bảng 8x8 */
+		grid-template-rows: repeat(5, 1fr);
 		gap: 5px;
 		background: #bbada0;
 		padding: 10px;
@@ -415,5 +426,8 @@ h1, h2 {
 
 	#restart-button {
 		margin-top: 100vw;
+	}
+	.tile .tile-text {
+		font-size: 2.5vw; /* Điều chỉnh kích thước chữ */
 	}
 }
