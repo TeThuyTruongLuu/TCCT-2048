@@ -495,6 +495,11 @@ function move(direction) {
         addRandomTile(); // Thêm ô mới trước
         renderBoard();
 
+        // **Kiểm tra chiến thắng ngay lập tức**
+        if (checkWin()) {
+            return;
+        }
+
         // Kiểm tra Game Over sau khi ô mới được hiển thị
         setTimeout(() => {
             if (!canMove()) {
@@ -503,6 +508,7 @@ function move(direction) {
         }, 100); // Chờ để ô mới được hiển thị
     }
 }
+
 
 // Lấy cột từ lưới
 function getColumn(grid, colIndex) {
@@ -583,4 +589,18 @@ function canMove() {
         }
     }
     return false; // Không còn nước đi
+}
+
+function checkWin() {
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            if (grid[row][col] === 2048) {  // Ô giá trị cao nhất
+                stopTimer();
+                alert(`🎉 Hooray! Chúc mừng bồ tu thành chính quả 2048 vẻ mặt sau ${formatTime(Math.floor(timer / 60))}:${formatTime(timer % 60)} bị bào mòn bởi tư bản!`);
+                restartGame();
+                return true;
+            }
+        }
+    }
+    return false;
 }
